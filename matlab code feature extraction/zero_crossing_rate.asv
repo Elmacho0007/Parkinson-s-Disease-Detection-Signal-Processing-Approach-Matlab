@@ -1,0 +1,57 @@
+%%  
+clc;
+clear;
+close all;
+%%
+
+% Specify the path to the audio file
+audio_data = 'ID02_pd_2_0_0_01.wav';
+
+% Load the audio file
+[x, sr] = audioread(audio_data);
+
+% Display the original sampling rate
+disp(['Original sampling rate: ', num2str(sr)]);
+
+% Desired new sampling rate
+desired_sr = 44100;
+
+% Resample the audio data to the desired sampling rate
+x_resampled = resample(x, desired_sr, sr);
+
+% Display the new size of x_resampled and the new sampling rate
+disp(['Size of x_resampled: ', num2str(size(x_resampled))]);
+disp(['New sampling rate: ', num2str(desired_sr)]);
+
+% Play the resampled audio
+sound(x_resampled, desired_sr);
+
+%% Spectral Centroid
+% MainScript.m
+
+% Specify the path to the audio file
+audio_data = 'ID02_pd_2_0_0_01.wav';
+
+% Load the audio file
+[x, sr] = audioread(audio_data);
+
+% Desired new sampling rate
+desired_sr = 44100;
+
+% Resample the audio data to the desired sampling rate
+x_resampled = resample(x, desired_sr, sr);
+
+% Call the SpectralCentroid function
+windowLength = 882; % 20 ms at 44100 Hz
+step = 441; % Half of the window length
+fs = desired_sr;
+C = SpectralCentroid(x_resampled, windowLength, step, fs);
+
+% Display the calculated spectral centroid values
+disp('Calculated spectral centroid values:');
+disp(C);
+
+% Play the resampled audio
+sound(x_resampled, desired_sr);
+
+
